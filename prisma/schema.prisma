@@ -1,0 +1,146 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    // provider = "mysql"
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id                       Int              @id @default(autoincrement())
+    email                    String           @unique
+    name                     String?
+    password                 String
+    createdAt                DateTime         @default(now())
+    passwordChangedAt        DateTime?
+    passwordResetToken       String?
+    passwordResetTokenExpire DateTime?
+    roles                    Role[]
+    SupportRequests          SupportRequest[]
+    userType                 userType
+    DailyJob                 DailyJob[]
+}
+
+enum userType {
+    Business
+    IndividualCustomer
+}
+
+model Role {
+    id          Int              @id @default(autoincrement())
+    name        String           @unique
+    createdAt   DateTime         @default(now())
+    updatedAt   DateTime         @updatedAt
+    users       User[]
+    permissions RolePermission[]
+}
+
+model Permission {
+    id         Int              @id @default(autoincrement())
+    permission String           @unique
+    slug       String           @unique
+    roles      RolePermission[]
+}
+
+model RolePermission {
+    id           Int        @id @default(autoincrement())
+    roleId       Int
+    permissionId Int
+    Role         Role       @relation(fields: [roleId], references: [id])
+    Permission   Permission @relation(fields: [permissionId], references: [id])
+}
+
+model SparePart {
+    id        Int      @id @default(autoincrement())
+    name      String
+    price     Int
+    quantity  Int
+    weight    Int
+    stock     String
+    createdAt DateTime @default(now())
+    RepairJob RepairJob[]
+}
+
+model SupportRequest {
+    id             Int              @id @default(autoincrement())
+    userId         Int
+    user           User             @relation(fields: [userId], references: [id])
+    description    String           @db.Text
+    status         SupportStatus    @default(Submitted)
+    createdAt      DateTime         @default(now())
+    repairjob      RepairJob[]
+    ManagementData ManagementData[]
+    Quotation      Quotation?
+}
+
+enum SupportStatus {
+    Submitted
+    Accepted
+    Rejected
+}
+
+model Quotation {
+    id               Int             @id @default(autoincrement())
+    price            Decimal
+    productName      String
+    productId        Int
+    status           QuotationStatus @default(Pending)
+    SupportRequest   SupportRequest? @relation(fields: [supportRequestId], references: [id])
+    supportRequestId Int?            @unique
+}
+
+enum QuotationStatus {
+    Pending
+    Accepted
+    Rejected
+}
+
+model RepairJob {
+    id               Int            @id @default(autoincrement())
+    supportRequestId Int            @unique
+    productName      String?
+    address          String?
+    supportRequest   SupportRequest @relation(fields: [supportRequestId], references: [id])
+    status           RepairStatus   @default(Scheduled)
+    scheduledDate    DateTime
+    dailyJob         DailyJob?
+    spareparts       SparePart?     @relation(fields: [sparePartId], references: [id])
+    sparePartId      Int?
+    createdAt        DateTime       @default(now())
+}
+
+enum RepairStatus {
+    Scheduled
+    InProgress
+    Completed
+}
+
+model KnowledgeBaseArticle {
+    id      Int    @id @default(autoincrement())
+    title   String
+    content String @db.Text
+    image   String
+}
+
+model DailyJob {
+    id           Int       @id @default(autoincrement())
+    date         DateTime
+    priority     String?
+    status       String?
+    assignedToId Int?
+    assignedTo   User?     @relation(fields: [assignedToId], references: [id])
+    repairJob    RepairJob @relation(fields: [repairJobId], references: [id])
+    repairJobId  Int       @unique
+}
+
+model ManagementData {
+    id                   Int            @id @default(autoincrement())
+    supportRequestId     Int
+    supportRequest       SupportRequest @relation(fields: [supportRequestId], references: [id])
+    commonIssues         String
+    timeTaken            Float
+    customerSatisfaction Float
+    location             String
+}

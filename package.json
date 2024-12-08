@@ -1,0 +1,46 @@
+{
+  "name": "dern-software-backend",
+  "version": "1.0.0",
+  "description": "The company provides on-site support for business customers. Individuals must either drop their computer off at one of the company’s offices or arrange for it to be delivered by a courier.",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node seed.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pahadiniraj/dern-api.git"
+  },
+  "keywords": [
+    "dern-support",
+    "backend",
+    "express"
+  ],
+  "author": "Niraj Pahadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pahadiniraj/dern-api/issues"
+  },
+  "homepage": "https://github.com/pahadiniraj/dern-api#readme",
+  "dependencies": {
+    "@prisma/client": "^6.0.1",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.2.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prisma": "^6.0.1"
+  }
+}
