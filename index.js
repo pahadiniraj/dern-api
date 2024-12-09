@@ -4,9 +4,9 @@ const cookieparser = require("cookie-parser");
 const dotenv = require("dotenv");
 const LoadRoutes = require("./src/routes/router");
 
-const app = express();
 dotenv.config();
 
+const app = express();
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
