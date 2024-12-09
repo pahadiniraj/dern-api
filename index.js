@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const LoadRoutes = require("./src/routes/router");
 
 const app = express();
+dotenv.config();
 
 app.use(
   cors({
@@ -16,7 +17,6 @@ app.use(
 app.use(express.json());
 app.use(cookieparser());
 
-dotenv.config();
 app.use(
   express.urlencoded({
     extended: true,
