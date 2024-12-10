@@ -5,7 +5,9 @@ const dotenv = require("dotenv");
 const LoadRoutes = require("./src/routes/router");
 
 dotenv.config();
+
 const app = express();
+
 // Configure CORS
 app.use(
   cors({
@@ -31,3 +33,6 @@ app.use(
 app.use("/storage", express.static("storage"));
 
 LoadRoutes(app);
+
+// Export the app for Vercel
+module.exports = app;
