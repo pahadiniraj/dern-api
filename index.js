@@ -31,7 +31,3 @@ app.use(
 app.use("/storage", express.static("storage"));
 
 LoadRoutes(app);
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
-});
