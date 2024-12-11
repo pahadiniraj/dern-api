@@ -1,13 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "index.js", "use": "@vercel/node" },
-    {
-      "src": "prisma/schema.prisma",
-      "use": "@vercel/static-build",
-      "config": { "buildCommand": "prisma generate" }
-    }
-  ],
+  "builds": [{ "src": "index.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "index.js" }]
-
 }
