@@ -32,11 +32,10 @@ app.use("/storage", express.static("storage"));
 
 LoadRoutes(app);
 
-if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
-} else {
+
   module.exports = app;
-}
+

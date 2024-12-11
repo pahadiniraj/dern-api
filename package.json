@@ -2,12 +2,12 @@
   "name": "dern-software-backend",
   "version": "1.0.0",
   "description": "The company provides on-site support for business customers. Individuals must either drop their computer off at one of the company’s offices or arrange for it to be delivered by a courier.",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
     "seed": "node seed.js",
     "build": "npx prisma generate",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

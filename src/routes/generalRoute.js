@@ -23,7 +23,6 @@ router.post("/seed", async (req, res) => {
   }
 });
 
-
 router.post("/seedRoles", async (req, res) => {
   try {
     await seedRoles();
